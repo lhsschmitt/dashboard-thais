@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<!-- saved from url=(0062)file:///Users/luizhenriquesalvadorschmitt/Downloads/index.html -->
+<html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dashboard Thais</title>
+<link href="./index_files/css2" rel="stylesheet">
+<script src="./index_files/chart.umd.js"></script>
+<style>
+:root{--bg:#F7F6F3;--s:#fff;--s2:#F0EEE9;--b:#E4E1D9;--t:#1A1916;--m:#7A7770;--a:#2D5BE3;--al:#EAF0FF;--r:12px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--t)}
+header{background:var(--s);border-bottom:1px solid var(--b);padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:10}
+.logo{font-size:15px;font-weight:600}.logo span{color:var(--a)}
+.upd{font-size:11px;color:var(--m)}
+main{max-width:900px;margin:0 auto;padding:1.5rem 1rem}
+h1{font-size:22px;font-weight:600;margin-bottom:2px}
+.sub{font-size:13px;color:var(--m);margin-bottom:1.5rem}
+.f{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.25rem;background:var(--s);border:1px solid var(--b);border-radius:var(--r);padding:10px 14px;align-items:center}
+.f label{font-size:12px;color:var(--m);font-weight:500}
+select{font-family:"DM Sans",sans-serif;font-size:13px;padding:6px 10px;border-radius:8px;border:1px solid var(--b);background:var(--bg);color:var(--t);cursor:pointer}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:1.5rem}
+.card{background:var(--s);border:1px solid var(--b);border-radius:var(--r);padding:1rem}
+.card.ac{background:var(--a);border-color:var(--a)}
+.cl{font-size:11px;color:var(--m);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.card.ac .cl{color:rgba(255,255,255,.7)}
+.cv{font-size:21px;font-weight:600}.card.ac .cv{color:#fff}
+.cs{font-size:12px;color:var(--m);margin-top:3px}.card.ac .cs{color:rgba(255,255,255,.6)}
+.charts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:1.5rem}
+@media(max-width:580px){.charts{grid-template-columns:1fr}}
+.cbox{background:var(--s);border:1px solid var(--b);border-radius:var(--r);padding:1.1rem}
+.ct{font-size:11px;font-weight:600;color:var(--m);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px}
+.cw{position:relative;width:100%;height:200px}
+.leg{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px;font-size:11px;color:var(--m)}
+.leg span{display:flex;align-items:center;gap:4px}
+.ld{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+.tbox{background:var(--s);border:1px solid var(--b);border-radius:var(--r);overflow:hidden;margin-bottom:1.5rem}
+.th2{padding:.9rem 1.1rem;border-bottom:1px solid var(--b);font-size:11px;font-weight:600;color:var(--m);text-transform:uppercase;display:flex;justify-content:space-between;align-items:center}
+.tc{font-size:11px;background:var(--s2);padding:2px 8px;border-radius:999px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;color:var(--m);font-weight:500;padding:8px 14px;background:var(--s2);font-size:11px;text-transform:uppercase;border-bottom:1px solid var(--b)}
+td{padding:10px 14px;border-bottom:1px solid var(--b)}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--bg)}
+.badge{display:inline-block;font-size:11px;padding:2px 8px;border-radius:999px;font-weight:500}
+.mp{display:inline-block;font-size:11px;font-weight:500;color:var(--a);background:var(--al);padding:2px 8px;border-radius:999px}
+.empty{text-align:center;padding:2.5rem;color:var(--m);font-size:13px}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">Controle <span>Thais</span></div>
+  <div class="upd" id="upd">Atualizado em 14/04/2026</div>
+</header>
+<main>
+  <h1>Dashboard de contas</h1>
+  <div class="sub">Lançamentos por mês de fatura</div>
+  <div class="f">
+    <label>Fatura:</label>
+    <select id="sM" onchange="render()"><option value="all">Todos os meses</option><option value="Brisa">Brisa</option><option value="Maio">Maio</option><option value="Junho">Junho</option><option value="Julho">Julho</option><option value="Agosto">Agosto</option><option value="Setembro">Setembro</option><option value="Outubro">Outubro</option></select>
+    <label style="margin-left:6px">Loja:</label>
+    <select id="sD" onchange="render()"><option value="all">Todas as lojas</option><option value="Cacau Show">Cacau Show</option><option value="JCM">JCM</option><option value="Me.Linda">Me.Linda</option><option value="Studio Z">Studio Z</option><option value="VestCasa">VestCasa</option><option value="brisa mini mercado">brisa mini mercado</option><option value="jim.com maria cristina">jim.com maria cristina</option><option value="leo cosmeticos">leo cosmeticos</option><option value="ropek confeccoes">ropek confeccoes</option></select>
+  </div>
+  <div class="cards" id="cards"><div class="card ac"><div class="cl">Total no período</div><div class="cv">R$ 1.275,19</div><div class="cs">20 lançamento(s)</div></div><div class="card"><div class="cl">Maior fatura</div><div class="cv" style="font-size:17px">Maio</div><div class="cs">R$ 542,92</div></div><div class="card"><div class="cl">Maior loja</div><div class="cv" style="font-size:17px">VestCasa</div><div class="cs">R$ 508,32</div></div><div class="card"><div class="cl">Meses cobertos</div><div class="cv">7</div><div class="cs">faturas</div></div></div>
+  <div class="charts">
+    <div class="cbox"><div class="ct">Total por fatura</div><div class="cw"><canvas id="cB" role="img" aria-label="Total por fatura" width="779" height="400" style="display: block; box-sizing: border-box; height: 200px; width: 389px;"></canvas></div></div>
+    <div class="cbox"><div class="ct">Por loja</div><div class="leg" id="legD"><span><span class="ld" style="background:#2D5BE3"></span>Cacau Show 10%</span><span><span class="ld" style="background:#1A7A4A"></span>JCM 6%</span><span><span class="ld" style="background:#D4770A"></span>Studio Z 20%</span><span><span class="ld" style="background:#C0392B"></span>VestCasa 40%</span><span><span class="ld" style="background:#7B3FC4"></span>Me.Linda 9%</span><span><span class="ld" style="background:#C0527A"></span>ropek confeccoes 6%</span><span><span class="ld" style="background:#2E8B8B"></span>leo cosmeticos 3%</span><span><span class="ld" style="background:#7A6A1A"></span>jim.com maria cristina 4%</span><span><span class="ld" style="background:#5A3A1A"></span>brisa mini mercado 2%</span></div><div class="cw"><canvas id="cD" role="img" aria-label="Por loja" width="779" height="400" style="display: block; box-sizing: border-box; height: 200px; width: 389px;"></canvas></div></div>
+  </div>
+  <div class="tbox">
+    <div class="th2">Lançamentos<span class="tc" id="tc">20 item(s)</span></div>
+    <table>
+      <thead><tr>
+        <th style="width:95px">Data</th><th>Descrição</th>
+        <th style="width:100px">Fatura</th>
+        <th style="width:110px;text-align:right">Valor</th>
+      </tr></thead>
+      <tbody id="tb"><tr><td style="font-size:12px">11/04/2026</td><td><span class="badge" style="background:#5A3A1A18;color:#5A3A1A">brisa mini mercado</span></td><td><span class="mp">Brisa</span></td><td style="text-align:right;font-weight:600">R$ 20,89</td></tr><tr><td style="font-size:12px">07/04/2026</td><td><span class="badge" style="background:#C0392B18;color:#C0392B">VestCasa</span></td><td><span class="mp">Maio</span></td><td style="text-align:right;font-weight:600">R$ 84,72</td></tr><tr><td style="font-size:12px">04/04/2026</td><td><span class="badge" style="background:#1A7A4A18;color:#1A7A4A">JCM</span></td><td><span class="mp">Maio</span></td><td style="text-align:right;font-weight:600">R$ 81,94</td></tr><tr><td style="font-size:12px">06/04/2026</td><td><span class="badge" style="background:#D4770A18;color:#D4770A">Studio Z</span></td><td><span class="mp">Maio</span></td><td style="text-align:right;font-weight:600">R$ 69,99</td></tr><tr><td style="font-size:12px">02/04/2026</td><td><span class="badge" style="background:#2D5BE318;color:#2D5BE3">Cacau Show</span></td><td><span class="mp">Maio</span></td><td style="text-align:right;font-weight:600">R$ 63,49</td></tr><tr><td style="font-size:12px">11/04/2026</td><td><span class="badge" style="background:#D4770A18;color:#D4770A">Studio Z</span></td><td><span class="mp">Maio</span></td><td style="text-align:right;font-weight:600">R$ 60,00</td></tr><tr><td style="font-size:12px">10/04/2026</td><td><span class="badge" style="background:#7B3FC418;color:#7B3FC4">Me.Linda</span></td><td><span class="mp">Maio</span></td><td style="text-align:right;font-weight:600">R$ 54,40</td></tr><tr><td style="font-size:12px">11/04/2026</td><td><span class="badge" style="background:#7A6A1A18;color:#7A6A1A">jim.com maria cristina</span></td><td><span class="mp">Maio</span></td><td style="text-align:right;font-weight:600">R$ 48,00</td></tr><tr><td style="font-size:12px">11/04/2026</td><td><span class="badge" style="background:#2E8B8B18;color:#2E8B8B">leo cosmeticos</span></td><td><span class="mp">Maio</span></td><td style="text-align:right;font-weight:600">R$ 40,48</td></tr><tr><td style="font-size:12px">11/04/2026</td><td><span class="badge" style="background:#C0527A18;color:#C0527A">ropek confeccoes</span></td><td><span class="mp">Maio</span></td><td style="text-align:right;font-weight:600">R$ 39,90</td></tr><tr><td style="font-size:12px">07/04/2026</td><td><span class="badge" style="background:#C0392B18;color:#C0392B">VestCasa</span></td><td><span class="mp">Junho</span></td><td style="text-align:right;font-weight:600">R$ 84,72</td></tr><tr><td style="font-size:12px">06/04/2026</td><td><span class="badge" style="background:#D4770A18;color:#D4770A">Studio Z</span></td><td><span class="mp">Junho</span></td><td style="text-align:right;font-weight:600">R$ 69,99</td></tr><tr><td style="font-size:12px">02/04/2026</td><td><span class="badge" style="background:#2D5BE318;color:#2D5BE3">Cacau Show</span></td><td><span class="mp">Junho</span></td><td style="text-align:right;font-weight:600">R$ 63,49</td></tr><tr><td style="font-size:12px">11/04/2026</td><td><span class="badge" style="background:#D4770A18;color:#D4770A">Studio Z</span></td><td><span class="mp">Junho</span></td><td style="text-align:right;font-weight:600">R$ 60,00</td></tr><tr><td style="font-size:12px">10/04/2026</td><td><span class="badge" style="background:#7B3FC418;color:#7B3FC4">Me.Linda</span></td><td><span class="mp">Junho</span></td><td style="text-align:right;font-weight:600">R$ 54,40</td></tr><tr><td style="font-size:12px">11/04/2026</td><td><span class="badge" style="background:#C0527A18;color:#C0527A">ropek confeccoes</span></td><td><span class="mp">Junho</span></td><td style="text-align:right;font-weight:600">R$ 39,90</td></tr><tr><td style="font-size:12px">07/04/2026</td><td><span class="badge" style="background:#C0392B18;color:#C0392B">VestCasa</span></td><td><span class="mp">Julho</span></td><td style="text-align:right;font-weight:600">R$ 84,72</td></tr><tr><td style="font-size:12px">07/04/2026</td><td><span class="badge" style="background:#C0392B18;color:#C0392B">VestCasa</span></td><td><span class="mp">Agosto</span></td><td style="text-align:right;font-weight:600">R$ 84,72</td></tr><tr><td style="font-size:12px">07/04/2026</td><td><span class="badge" style="background:#C0392B18;color:#C0392B">VestCasa</span></td><td><span class="mp">Setembro</span></td><td style="text-align:right;font-weight:600">R$ 84,72</td></tr><tr><td style="font-size:12px">07/04/2026</td><td><span class="badge" style="background:#C0392B18;color:#C0392B">VestCasa</span></td><td><span class="mp">Outubro</span></td><td style="text-align:right;font-weight:600">R$ 84,72</td></tr></tbody>
+    </table>
+    <div id="emp" class="empty" style="display:none">Nenhum lançamento.</div>
+  </div>
+</main>
+<script>
+var AD=[{"data":"02/04/2026","desc":"Cacau Show","mes":"Maio","val":63.49},{"data":"02/04/2026","desc":"Cacau Show","mes":"Junho","val":63.49},{"data":"04/04/2026","desc":"JCM","mes":"Maio","val":81.94},{"data":"06/04/2026","desc":"Studio Z","mes":"Maio","val":69.99},{"data":"06/04/2026","desc":"Studio Z","mes":"Junho","val":69.99},{"data":"07/04/2026","desc":"VestCasa","mes":"Maio","val":84.72},{"data":"07/04/2026","desc":"VestCasa","mes":"Junho","val":84.72},{"data":"07/04/2026","desc":"VestCasa","mes":"Julho","val":84.72},{"data":"07/04/2026","desc":"VestCasa","mes":"Agosto","val":84.72},{"data":"07/04/2026","desc":"VestCasa","mes":"Setembro","val":84.72},{"data":"07/04/2026","desc":"VestCasa","mes":"Outubro","val":84.72},{"data":"10/04/2026","desc":"Me.Linda","mes":"Maio","val":54.4},{"data":"10/04/2026","desc":"Me.Linda","mes":"Junho","val":54.4},{"data":"11/04/2026","desc":"Studio Z","mes":"Maio","val":60.0},{"data":"11/04/2026","desc":"Studio Z","mes":"Junho","val":60.0},{"data":"11/04/2026","desc":"ropek confeccoes","mes":"Maio","val":39.9},{"data":"11/04/2026","desc":"ropek confeccoes","mes":"Junho","val":39.9},{"data":"11/04/2026","desc":"leo cosmeticos","mes":"Maio","val":40.48},{"data":"11/04/2026","desc":"jim.com maria cristina","mes":"Maio","val":48.0},{"data":"11/04/2026","desc":"brisa mini mercado","mes":"Brisa","val":20.89}];
+var MO=["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
+var PAL=["#2D5BE3","#1A7A4A","#D4770A","#C0392B","#7B3FC4","#C0527A","#2E8B8B","#7A6A1A","#5A3A1A","#888"];
+var CM={};
+function cor(k){if(!CM[k]){var n=Object.keys(CM).length;CM[k]=PAL[n%PAL.length];}return CM[k];}
+function fmt(n){return"R$ "+Number(n).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});}
+var cB=null,cD=null;
+var allData=AD.map(function(r){var m=r.mes.trim();return Object.assign({},r,{mes:m.charAt(0).toUpperCase()+m.slice(1).toLowerCase()});});
+document.getElementById("upd").textContent="Atualizado em 14/04/2026";
+function init(){
+  var meses=[...new Set(allData.map(function(d){return d.mes;}))].sort(function(a,b){return MO.indexOf(a)-MO.indexOf(b);});
+  var descs=[...new Set(allData.map(function(d){return d.desc;}))].sort();
+  document.getElementById("sM").innerHTML='<option value="all">Todos os meses</option>'+meses.map(function(m){return'<option value="'+m+'">'+m+'</option>';}).join('');
+  document.getElementById("sD").innerHTML='<option value="all">Todas as lojas</option>'+descs.map(function(d){return'<option value="'+d+'">'+d+'</option>';}).join('');
+  render();
+}
+function getF(){
+  var m=document.getElementById("sM").value,d=document.getElementById("sD").value;
+  return allData.filter(function(r){return(m==="all"||r.mes===m)&&(d==="all"||r.desc===d);});
+}
+function render(){
+  var data=getF();
+  var total=data.reduce(function(s,r){return s+r.val;},0);
+  var bM={},bD={};
+  data.forEach(function(r){bM[r.mes]=(bM[r.mes]||0)+r.val;bD[r.desc]=(bD[r.desc]||0)+r.val;});
+  var tM=Object.entries(bM).sort(function(a,b){return b[1]-a[1];})[0];
+  var tD=Object.entries(bD).sort(function(a,b){return b[1]-a[1];})[0];
+  document.getElementById("cards").innerHTML=
+    '<div class="card ac"><div class="cl">Total no período</div><div class="cv">'+fmt(total)+'</div><div class="cs">'+data.length+' lançamento(s)</div></div>'
+    +'<div class="card"><div class="cl">Maior fatura</div><div class="cv" style="font-size:17px">'+(tM?tM[0]:"—")+'</div>'+(tM?'<div class="cs">'+fmt(tM[1])+'</div>':"")+'</div>'
+    +'<div class="card"><div class="cl">Maior loja</div><div class="cv" style="font-size:17px">'+(tD?tD[0]:"—")+'</div>'+(tD?'<div class="cs">'+fmt(tD[1])+'</div>':"")+'</div>'
+    +'<div class="card"><div class="cl">Meses cobertos</div><div class="cv">'+Object.keys(bM).length+'</div><div class="cs">faturas</div></div>';
+  rBar(bM);rDona(data);rTable(data);
+}
+function rBar(bM){
+  var keys=Object.keys(bM).sort(function(a,b){return MO.indexOf(a)-MO.indexOf(b);});
+  var vals=keys.map(function(k){return Math.round(bM[k]*100)/100;});
+  if(cB)cB.destroy();if(!keys.length)return;
+  cB=new Chart(document.getElementById("cB"),{type:"bar",data:{labels:keys,datasets:[{data:vals,backgroundColor:"#C7D9FA",borderColor:"#2D5BE3",borderWidth:1.5,borderRadius:5}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return" "+fmt(c.raw);}}}},scales:{x:{ticks:{font:{size:11},autoSkip:false,maxRotation:30},grid:{display:false}},y:{ticks:{callback:function(v){return"R$"+v.toFixed(0);},font:{size:11}}}}}});
+}
+function rDona(data){
+  var bD={};data.forEach(function(r){bD[r.desc]=(bD[r.desc]||0)+r.val;});
+  var labels=Object.keys(bD);
+  var vals=labels.map(function(l){return Math.round(bD[l]*100)/100;});
+  var colors=labels.map(function(l){return cor(l);});
+  var total=vals.reduce(function(s,v){return s+v;},0);
+  document.getElementById("legD").innerHTML=labels.map(function(l,i){return'<span><span class="ld" style="background:'+colors[i]+'"></span>'+l+' '+(total?Math.round(vals[i]/total*100):0)+'%</span>';}).join('');
+  if(cD)cD.destroy();if(!labels.length)return;
+  cD=new Chart(document.getElementById("cD"),{type:"doughnut",data:{labels:labels,datasets:[{data:vals,backgroundColor:colors,borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return" "+fmt(c.raw);}}}}}});
+}
+function rTable(data){
+  var sorted=[...data].sort(function(a,b){return MO.indexOf(a.mes)-MO.indexOf(b.mes)||b.val-a.val;});
+  document.getElementById("tc").textContent=sorted.length+" item(s)";
+  var tb=document.getElementById("tb"),emp=document.getElementById("emp");
+  if(!sorted.length){tb.innerHTML="";emp.style.display="block";return;}
+  emp.style.display="none";
+  tb.innerHTML=sorted.map(function(r){var c=cor(r.desc);return'<tr><td style="font-size:12px">'+r.data+'</td><td><span class="badge" style="background:'+c+'18;color:'+c+'">'+r.desc+'</span></td><td><span class="mp">'+r.mes+'</span></td><td style="text-align:right;font-weight:600">'+fmt(r.val)+'</td></tr>';}).join('');
+}
+init();
+</script>
+
+
+</body></html>
